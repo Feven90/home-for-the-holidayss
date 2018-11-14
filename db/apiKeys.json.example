@@ -1,0 +1,10 @@
+{
+    "firebaseKyes": {
+        "apiKey": "AIzaSyAF0Lt1ZF8nROC4RvKodyFKpABL5hpDBSo",
+        "authDomain": "home-for-the-holidays-b6fd5.firebaseapp.com",
+        "databaseURL": "https://home-for-the-holidays-b6fd5.firebaseio.com",
+        "projectId" : "home-for-the-holidays-b6fd5",
+        "storageBucket" : "",
+        "messagingSenderId" : "6698512476"
+      }
+}
