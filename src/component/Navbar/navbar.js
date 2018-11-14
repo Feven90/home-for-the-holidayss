@@ -6,15 +6,26 @@ import './navbar.scss';
 
 const navbarEvents = () => {
   $('.nav-link').on('click', (e) => {
-    console.log(e.target.id);
     if (e.target.id === 'navbar-button-logout') {
       firebase.auth().signOut().then(() => {
-        console.log('you logged out');
+        $('#auth').show();
+        $('#friends').hide();
+        $('#holidays').hide();
       }).catch((err) => {
         console.error('you still logged in', err);
       });
+    } else if (e.target.id === 'navbar-button-holidays') {
+      $('#auth').hide();
+      $('#friends').hide();
+      $('#holidays').show();
+    } else if (e.target.id === 'navbar-button-friends') {
+      $('#auth').hide();
+      $('#friends').show();
+      $('#holidays').hide();
     } else {
-      console.log(e.target.id);
+      $('#auth').show();
+      $('#friends').hide();
+      $('#holidays').hide();
     }
   });
 };
