@@ -1,0 +1,47 @@
+{
+   "friend1": {
+    "name": "Callan M.",
+    "address": "1 Main Street, Nashville, TN 37209",
+    "phoneNumber": "1112223333",
+    "email": "callan@yomamma.com",
+    "relationship": "sister from anotha mother",
+    "isAvoiding": true,
+    "uid": "5PO4zO3LKlh3HGvHAteTvSQI2a13"
+   },
+   "friend2": {
+    "name": "Michelle",
+    "address": "Nashville, TN 37209",
+    "phoneNumber": "1112223333",
+    "email": "Michelle@yomamma.com",
+    "relationship": "sister from anotha mother",
+    "isAvoiding": true,
+    "uid": "5PO4zO3LKlh3HGvHAteTvSQI2a13"
+   },
+   "friend3": {
+    "name": "Ripal",
+    "address": "555 Main Street, Antioch, TN 37209",
+    "phoneNumber": "11122",
+    "email": "Ripal@yomamma.com",
+    "relationship": "sister from anotha mother",
+    "isAvoiding": true,
+    "uid": "5PO4zO3LKlh3HGvHAteTvSQI2a13"
+   },
+   "friend4": {
+    "name": "Mariya B.",
+    "address": "456 Nolensville pike",
+    "phoneNumber": "1112223333",
+    "email": "callan@yomamma.com",
+    "relationship": "sister from anotha mother",
+    "isAvoiding": true,
+    "uid": "5PO4zO3LKlh3HGvHAteTvSQI2a13"
+   },
+   "friend5": {
+    "name": "Jasmine",
+    "address": "Edge moor dr, TN 37209",
+    "phoneNumber": "1112223333",
+    "email": "Jasmine@yomamma.com",
+    "relationship": "sister from anotha mother",
+    "isAvoiding": true,
+    "uid": "13"
+   }
+  }
