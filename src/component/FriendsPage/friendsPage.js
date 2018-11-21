@@ -1,7 +1,6 @@
-import axios from 'axios';
 import $ from 'jquery';
-import apiKeys from '../../../db/apiKeys.json';
 import authHelpers from '../../helpers/authHelpers';
+import friendsData from '../../helpers/data/friendsData';
 
 const printSingleFriend = (friend) => {
   const friendString = `
@@ -20,10 +19,11 @@ const printSingleFriend = (friend) => {
 const getSingleFriend = (e) => {
   // firebase id
   const friendId = e.target.dataset.dropdownId;
-  axios.get(`${apiKeys.firebaseKeys.databaseURL}/friends/${friendId}.json`)
-    .then((result) => {
-      const singleFriend = result.data;
-      singleFriend.id = friendId;
+  friendsData.getSingleFriend(friendId)
+    .then((singleFriend) => {
+    //   const singleFriend = result.data; we can get rid of this, it is already
+    // done in friendsData promise
+    //   singleFriend.id = friendId;
       printSingleFriend(singleFriend);
     })
     .catch((error) => {
@@ -53,17 +53,17 @@ const buildDropdown = (friendsArray) => {
 
 const friendsPage = () => {
   const uid = authHelpers.getCurrentUid();
-  axios.get(`${apiKeys.firebaseKeys.databaseURL}/friends.json?orderBy="uid"&equalTo="${uid}"`)
-    .then((results) => {
-      const friendsObject = results.data;
-      const friendsArray = [];
-      if (friendsObject != null) {
-        Object.keys(friendsObject).forEach((friendId) => {
-          friendsObject[friendId].id = friendId; // taking friend1, friend2...and putting it into
-          // the object with "id" key
-          friendsArray.push(friendsObject[friendId]);
-        });
-      }
+  friendsData.getAllFriends(uid)
+    .then((friendsArray) => {
+    //   const friendsObject = results.data;
+    //   const friendsArray = [];
+    //   if (friendsObject != null) {
+    //     Object.keys(friendsObject).forEach((friendId) => {
+    //       friendsObject[friendId].id = friendId; // taking friend1, friend2...and putting it into
+    //       // the object with "id" key
+    //       friendsArray.push(friendsObject[friendId]);
+    //     });
+    //   }
       buildDropdown(friendsArray);
     })
     .catch((error) => {
@@ -74,7 +74,7 @@ const friendsPage = () => {
 const deleteFriend = (e) => {
   // firebase id
   const idToDelete = e.target.dataset.deleteId;
-  axios.delete(`${apiKeys.firebaseKeys.databaseURL}/friends/${idToDelete}.json`)
+  friendsData.deleteFriend(idToDelete)
     .then(() => {
       friendsPage();
       $('#single-container').html('');
