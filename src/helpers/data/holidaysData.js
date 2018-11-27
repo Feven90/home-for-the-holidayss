@@ -14,7 +14,7 @@ const getHolidaysByArrayOfIds = (uid, holidayIdsArray) => new Promise((resolve, 
         });
       }
       console.log('holidayIdsArray', holidayIdsArray);
-      console.log('holidays', holidaysArray);
+      console.log('holidaysArray', holidaysArray);
       const selectedHolidays = holidaysArray.filter(x => holidayIdsArray.includes(x.id));
       resolve(selectedHolidays);
     })
