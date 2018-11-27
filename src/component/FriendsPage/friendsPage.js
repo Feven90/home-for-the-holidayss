@@ -1,8 +1,17 @@
 import $ from 'jquery';
 import authHelpers from '../../helpers/authHelpers';
 import friendsData from '../../helpers/data/friendsData';
+import holidayFriendsData from '../../helpers/data/holidayFriendsData';
+import holidaysData from '../../helpers/data/holidaysData';
 
-const printSingleFriend = (friend) => {
+const holidayStringBuilder = (holidays) => {
+  let holidayString = '<h3>Holidays:</h3>';
+  holidays.forEach((holiday) => {
+    holidayString += `<h5>${holiday.name} ${holiday.Date}</h5>`;
+  });
+  return holidayString;
+};
+const printSingleFriend = (friend, holidays) => {
   const friendString = `
      <div>
        <h1>${friend.name}</h1>
@@ -12,7 +21,8 @@ const printSingleFriend = (friend) => {
        <p>${friend.phoneNumber}</p>
        <button class="btn-danger delete-btn" data-delete-id=${friend.id}>X</button>
        <button class="btn-info edit-btn" data-edit-id=${friend.id}>Edit</button>
-     </div>
+       <div class="holiday-container">${holidayStringBuilder(holidays)}</div>
+       </div>
     `;
   $('#single-container').html(friendString);
 };
@@ -20,12 +30,17 @@ const printSingleFriend = (friend) => {
 const getSingleFriend = (e) => {
   // firebase id
   const friendId = e.target.dataset.dropdownId;
+  const uid = authHelpers.getCurrentUid();
   friendsData.getSingleFriend(friendId)
     .then((singleFriend) => {
+      holidayFriendsData.getHolidayIdsForFriend(friendId).then((holidayIds) => {
+        console.log('holidayIds', holidayIds);
+        holidaysData.getHolidaysByArrayOfIds(uid, holidayIds).then((holidays) => {
+          printSingleFriend(singleFriend, holidays);
+        });
+      });
     //   const singleFriend = result.data; we can get rid of this, it is already
     // done in friendsData promise
-    //   singleFriend.id = friendId;
-      printSingleFriend(singleFriend);
     })
     .catch((error) => {
       console.error('error in getting one friend', error);
@@ -56,15 +71,9 @@ const friendsPage = () => {
   const uid = authHelpers.getCurrentUid();
   friendsData.getAllFriends(uid)
     .then((friendsArray) => {
-    //   const friendsObject = results.data;
-    //   const friendsArray = [];
-    //   if (friendsObject != null) {
     //     Object.keys(friendsObject).forEach((friendId) => {
     //       friendsObject[friendId].id = friendId; // taking friend1, friend2...and putting it into
     //       // the object with "id" key
-    //       friendsArray.push(friendsObject[friendId]);
-    //     });
-    //   }
       buildDropdown(friendsArray);
     })
     .catch((error) => {
